@@ -1,11 +1,12 @@
-import { NavLink } from 'react-router-dom';
-import { Wallet, Home, ArrowLeftRight, Users, BarChart3, Settings, User } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Wallet, Home, Users, BarChart3, Settings, ArrowUpRight } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
+
 
 const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: Home },
   { path: '/wallet', label: 'Wallet', icon: Wallet },
-  { path: '/send', label: 'Send Money', icon: ArrowLeftRight },
+  { path: '/send', label: 'Send Money', icon: ArrowUpRight },
   { path: '/groups', label: 'Groups', icon: Users },
   { path: '/analytics', label: 'Analytics', icon: BarChart3 },
   { path: '/settings', label: 'Settings', icon: Settings },
@@ -13,9 +14,10 @@ const navItems = [
 
 export default function NavigationRail() {
   const { user } = useAuthStore();
+  const navigate = useNavigate();
 
   return (
-    <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-[280px] z-[100] flex-col border-r border-black/5 dark:border-[#1F293D] frosted dark:*:bg-[#151B2C]/90">
+    <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-65 z-100 flex-col border-r border-black/5 dark:border-[#1F293D] bg-white frosted dark:*:bg-[#151B2C]/90">
       <div className="px-6 pt-6 pb-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl gradient-hero flex items-center justify-center">
@@ -45,9 +47,9 @@ export default function NavigationRail() {
 
       <div className="p-4">
         <div className="flex items-center gap-3 px-2 py-2 rounded-xl bg-gray-200 dark:bg-[#1F293D]">
-          <div className="w-10 h-10 rounded-full bg-[#4F46E5] flex items-center justify-center text-white text-sm font-semibold overflow-hidden shrink-0">
+          <button onClick={() => navigate('/settings')} className="w-10 h-10 rounded-full bg-[#4F46E5] flex items-center justify-center text-white text-sm font-semibold overflow-hidden shrink-0">
             {user?.avatar ? (<img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />) : (user?.name.split(' ').map(n => n[0]).join(''))}
-          </div>
+          </button>
           <div className="min-w-0">
             <p className="text-l font-medium text-[#333] dark:text-white truncate">{user?.name}</p>
             <p className="text-xs text-[#888] truncate">{user?.email}</p>

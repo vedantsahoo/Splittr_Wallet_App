@@ -9,6 +9,7 @@ export interface User {
 
 export interface WalletBalance {
   currency: string;
+  symbol?: string;
   amount: number;
   flag: string;
 }
@@ -18,6 +19,7 @@ export interface Transaction {
   type: 'sent' | 'received' | 'group_expense' | 'group_settlement' | 'wallet_funding' | 'withdrawal';
   amount: number;
   currency: string;
+  symbol?: string;
   description: string;
   date: string;
   category: string;

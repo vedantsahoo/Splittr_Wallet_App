@@ -16,9 +16,9 @@ interface WalletState {
 }
 
 const initialBalances: WalletBalance[] = [
-  { currency: 'INR', amount: 695730.50, flag: '🇮🇳' },
-  { currency: 'USD', amount: 1250.0, flag: '🇺🇸' },
-  { currency: 'EUR', amount: 890.75, flag: '🇪🇺' },
+  { currency: 'INR', symbol: '₹', amount: 695730.50, flag: '🇮🇳' },
+  { currency: 'USD', symbol: '$', amount: 1250.0, flag: '🇺🇸' },
+  { currency: 'EUR', symbol: '€', amount: 890.75, flag: '🇪🇺' },
 ];
 
 const initialTransactions: Transaction[] = [

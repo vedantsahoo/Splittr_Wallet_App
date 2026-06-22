@@ -153,7 +153,7 @@ export default function SettingsScreen() {
               <div className="relative">
                 <button
                   onClick={() => setShowCurrencyDropdown(!showCurrencyDropdown)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#6B4C9A] text-white text-xs font-medium"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-linear-to-r from-[#4F46E5] to-[#6B4C9A] text-white text-xs font-medium"
                 >
                   {currencies.find(c => c.code === selectedCurrency)?.flag} {selectedCurrency}
                 </button>

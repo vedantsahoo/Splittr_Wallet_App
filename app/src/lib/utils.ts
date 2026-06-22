@@ -13,7 +13,7 @@ export function formatCurrency(amount: number, currency: string): string {
     GBP: '£',
   };
   const symbol = symbols[currency] || currency;
-  
+
   if (currency === 'INR') {
     const formatted = amount.toLocaleString('en-IN', {
       minimumFractionDigits: 2,
@@ -21,7 +21,7 @@ export function formatCurrency(amount: number, currency: string): string {
     });
     return `${symbol} ${formatted}`;
   }
-  
+
   return `${symbol} ${amount.toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -48,7 +48,7 @@ export function formatRelativeDate(dateStr: string): string {
   const date = new Date(dateStr);
   const now = new Date();
   const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-  
+
   if (diffDays === 0) return 'Today';
   if (diffDays === 1) return 'Yesterday';
   if (diffDays < 7) return `${diffDays} days ago`;

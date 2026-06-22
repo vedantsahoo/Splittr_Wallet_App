@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Bell, ArrowLeft, Wallet } from 'lucide-react';
+import { useAuthStore } from '@/store/authStore';
 
 interface TopAppBarProps {
   title: string;
@@ -7,13 +8,14 @@ interface TopAppBarProps {
 }
 
 export default function TopAppBar({ title, scrolled }: TopAppBarProps) {
+  const { user } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
   const isGroupDetail = location.pathname.startsWith('/groups/') && location.pathname !== '/groups';
-  const isHome = location.pathname === '/';
+  const isHome = location.pathname === '/dashboard';
 
   return (
-    <header className={`lg:hidden fixed top-0 left-0 right-0 z-100 h-16 frosted dark:bg-[#151B2C]/90 border-b border-[#F0F0F0] dark:border-[#1F293D] transition-shadow duration-200 ${scrolled ? 'shadow-[0_2px_8px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]' : ''}`}>
+    <header className={`lg:hidden fixed top-0 left-0 right-0 z-100 h-16 frosted dark:*:bg-[#151B2C]/90 transition-shadow duration-200 ${scrolled ? 'shadow-[0_2px_8px_rgba(0,0,0,0.2)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]' : ''}`}>
       <div className="flex items-center justify-between h-full px-5">
         <div className="flex items-center gap-3">
           {isGroupDetail ? (
@@ -25,19 +27,26 @@ export default function TopAppBar({ title, scrolled }: TopAppBarProps) {
               <div className="w-8 h-8 rounded-lg gradient-hero flex items-center justify-center">
                 <Wallet className="w-4 h-4 text-white" />
               </div>
-              <span className="text-lg font-bold text-[#4F46E5] dark:text-indigo-400">Splittr</span>
+              <span className="text-xl font-bold text-[#4F46E5] dark:text-indigo-400">Splittr Wallet</span>
             </div>
           )}
         </div>
 
-        <h1 className="absolute left-1/2 -translate-x-1/2 text-base font-semibold text-[#000] dark:text-white">
+        <h1 className="absolute left-1/2 -translate-x-1/2 text-base font-semibold text-black dark:text-white">
           {!isHome && title}
         </h1>
-
-        <button type="button" title="Notifications" aria-label="Notifications" className="p-2 relative rounded-full active:bg-black/5 dark:active:bg-white/5">
+        {/* <button type="button" title="Notifications" aria-label="Notifications" className="p-2 relative z-20 rounded-full  dark:active:bgactive:bg-black/5-white/5">
           <Bell className="w-5 h-5 text-[#333] dark:text-white" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#EF4444] rounded-full" />
-        </button>
+        </button> */}
+        <div className="flex items-center gap-1 px-1.5 py-1.5 border border-black/5 dark:border-[#51555c] rounded-full hover:bg-gray-200 dark:hover:bg-[#1F293D]">
+          <button title='User Profile' aria-label='User Profile' onClick={() => navigate('/settings')} className="w-11 h-11 rounded-full bg-[#4F46E5] flex items-center justify-center text-white text-sm font-semibold overflow-hidden shrink-0">
+            {user?.avatar ? (<img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />) : (user?.name.split(' ').map(n => n[0]).join(''))}
+          </button>
+          {/* <div className="min-w-0">
+            <p className="text-sm font-medium text-[#333] dark:text-white truncate">Hi, {user?.name.split(' ')[0]}</p>
+          </div> */}
+        </div>
       </div>
     </header>
   );

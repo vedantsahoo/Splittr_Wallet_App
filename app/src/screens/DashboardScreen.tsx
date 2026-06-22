@@ -79,11 +79,10 @@ export default function DashboardScreen() {
                 <button
                   key={b.currency}
                   onClick={() => useWalletStore.getState().setCurrency(b.currency)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                    selectedCurrency === b.currency
-                      ? 'bg-white text-[#4F46E5]'
-                      : 'bg-white/20 text-white hover:bg-white/30'
-                  }`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCurrency === b.currency
+                    ? 'bg-white text-[#4F46E5]'
+                    : 'bg-white/20 text-white hover:bg-white/30'
+                    }`}
                 >
                   {b.flag} {b.currency}
                 </button>
@@ -116,7 +115,7 @@ export default function DashboardScreen() {
         {/* Recent Transactions */}
         <motion.div variants={item} className="mt-6">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-[#000] dark:text-white">Recent Transactions</h3>
+            <h3 className="text-lg font-semibold text-black dark:text-white">Recent Transactions</h3>
             <button onClick={() => navigate('/wallet')} className="text-sm text-[#4F46E5] dark:text-indigo-400 font-medium flex items-center gap-1">
               View All <ArrowRight className="w-4 h-4" />
             </button>
@@ -131,7 +130,7 @@ export default function DashboardScreen() {
         {/* Groups Preview */}
         <motion.div variants={item} className="mt-6">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-[#000] dark:text-white">Your Groups</h3>
+            <h3 className="text-lg font-semibold text-black dark:text-white">Your Groups</h3>
             <button onClick={() => navigate('/groups')} className="text-sm text-[#4F46E5] dark:text-indigo-400 font-medium flex items-center gap-1">
               View All <ArrowRight className="w-4 h-4" />
             </button>
@@ -141,7 +140,7 @@ export default function DashboardScreen() {
               <button
                 key={group.id}
                 onClick={() => navigate(`/groups/${group.id}`)}
-                className="snap-start flex-shrink-0 w-36 bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-4 shadow-card dark:shadow-none hover:shadow-card-hover dark:hover:bg-[#1C2437] transition-all text-left active:scale-95 cursor-pointer"
+                className="snap-start shrink-0 w-36 bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-4 shadow-card dark:shadow-none hover:shadow-card-hover dark:hover:bg-[#1C2437] transition-all text-left active:scale-95 cursor-pointer"
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-2" style={{ backgroundColor: `${group.color}15` }}>
                   {group.icon}
@@ -155,7 +154,7 @@ export default function DashboardScreen() {
             ))}
             <button
               onClick={() => navigate('/groups')}
-              className="snap-start flex-shrink-0 w-36 rounded-2xl p-4 border-2 border-dashed border-[#E0E0E0] dark:border-[#2A364F] flex flex-col items-center justify-center gap-2 hover:border-[#4F46E5] dark:hover:border-indigo-400 transition-colors active:scale-95 cursor-pointer"
+              className="snap-start shrink-0 w-36 rounded-2xl p-4 border-2 border-dashed border-[#E0E0E0] dark:border-[#2A364F] flex flex-col items-center justify-center gap-2 hover:border-[#4F46E5] dark:hover:border-indigo-400 transition-colors active:scale-95 cursor-pointer"
             >
               <div className="w-10 h-10 rounded-xl bg-[#F5F5F5] dark:bg-[#1C2437] flex items-center justify-center">
                 <Plus className="w-5 h-5 text-[#888] dark:text-[#94A3B8]" />
@@ -165,10 +164,10 @@ export default function DashboardScreen() {
           </div>
         </motion.div>
 
-        {/* Savings Goals */}
+        {/* Savings Goals (TODO: implement) */}
         <motion.div variants={item} className="mt-6 pb-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-[#000] dark:text-white">Savings Goals</h3>
+            <h3 className="text-lg font-semibold text-black dark:text-white">Savings Goals</h3>
             <button className="text-sm text-[#4F46E5] dark:text-indigo-400 font-medium">View All</button>
           </div>
           <div className="space-y-3">
