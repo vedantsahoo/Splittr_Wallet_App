@@ -63,7 +63,7 @@ export default function DashboardScreen() {
   const recentTransactions = transactions.slice(0, 5);
 
   return (
-    <div className="px-5 py-4 lg:px-12 lg:py-8 max-w-[1400px] mx-auto text-[#333] dark:text-[#E2E8F0]">
+    <div className="px-5 py-4 lg:px-12 lg:py-8 max-w-350 mx-auto text-[#333] dark:text-[#E2E8F0]">
       <motion.div variants={container} initial="hidden" animate="show">
         {/* Hero Banner */}
         <motion.div variants={item} className="gradient-hero rounded-3xl p-6 text-white relative overflow-hidden shadow-[0_8px_30px_rgb(79,70,229,0.3)] dark:shadow-none">

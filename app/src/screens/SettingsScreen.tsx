@@ -94,8 +94,8 @@ export default function SettingsScreen() {
         <div className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-5 shadow-card dark:shadow-none mb-5 transition-colors">
           <div className="flex items-center gap-4">
             <div className="relative">
-              <div className="w-16 h-16 rounded-full bg-[#4F46E5] flex items-center justify-center text-white text-lg font-bold">
-                {user?.name?.split(' ').map(n => n[0]).join('') || 'U'}
+              <div className="w-20 h-20 rounded-full bg-[#4F46E5] flex items-center justify-center text-white text-lg font-bold">
+                {user?.avatar ? (<img src={user.avatar} alt={user.name} className="w-full h-full object-cover rounded-full" />) : (user?.name.split(' ').map(n => n[0]).join(''))}
               </div>
               <button
                 onClick={() => { setEditName(user?.name || ''); setShowEditProfile(true); }}

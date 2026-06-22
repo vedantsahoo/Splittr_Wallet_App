@@ -45,13 +45,12 @@ export default function NavigationRail() {
 
       <div className="p-4">
         <div className="flex items-center gap-3 px-2 py-2 rounded-xl bg-gray-200 dark:bg-[#1F293D]">
-          <div className="w-10 h-10 rounded-full bg-[#4F46E5] flex items-center justify-center text-white text-sm font-semibold">
-            {/* {user?.name?.split(' ').map(n => n[0]).join('') || 'U'} */}
-            <User className="w-5 h-5 text-white" />
+          <div className="w-10 h-10 rounded-full bg-[#4F46E5] flex items-center justify-center text-white text-sm font-semibold overflow-hidden shrink-0">
+            {user?.avatar ? (<img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />) : (user?.name.split(' ').map(n => n[0]).join(''))}
           </div>
           <div className="min-w-0">
             <p className="text-l font-medium text-[#333] dark:text-white truncate">{user?.name}</p>
-            {/* <p className="text-xs text-[#888] truncate">{user?.email}</p> */}
+            <p className="text-xs text-[#888] truncate">{user?.email}</p>
           </div>
         </div>
       </div>

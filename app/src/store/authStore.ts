@@ -19,6 +19,7 @@ export const useAuthStore = create<AuthState>()(
       user: {
         id: '1',
         name: 'Vedant Sahu',
+        avatar: 'https://avatars.githubusercontent.com/u/156448866?v=4',
         email: 'vedantvibhusahu1234567@gmail.com',
         phone: '+91 7007248526',
         walletId: 'SW-78456231',
