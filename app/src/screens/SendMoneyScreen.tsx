@@ -69,7 +69,7 @@ export default function SendMoneyScreen() {
   };
 
   return (
-    <div className="px-5 py-4 lg:px-12 lg:py-8 max-w-lg mx-auto min-h-[calc(100vh-140px)]">
+    <div className="px-5 py-4 lg:px-12 lg:py-8 max-w-lg mx-auto min-h-[calc(100vh-140px)] text-[#333] dark:text-[#E2E8F0]">
       <AnimatePresence mode="wait">
         {/* Step 1: Select Recipient */}
         {step === 'recipient' && (
@@ -80,17 +80,18 @@ export default function SendMoneyScreen() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h2 className="text-2xl font-bold text-[#000] mb-1">Send Money</h2>
-            <p className="text-sm text-[#888] mb-4">Choose a recipient</p>
+            <h2 className="text-2xl font-bold text-[#000] dark:text-white mb-1">Send Money</h2>
+            <p className="text-sm text-[#888] dark:text-[#94A3B8] mb-4">Choose a recipient</p>
 
             <div className="relative mb-4">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#888]" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#888] dark:text-[#94A3B8]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search contacts..."
-                className="w-full pl-12 pr-4 py-3.5 bg-white border border-[#E0E0E0] rounded-xl text-sm focus:border-[#4F46E5] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/10"
+                title="Search contacts"
+                className="w-full pl-12 pr-4 py-3.5 bg-white dark:bg-[#151B2C] border border-[#E0E0E0] dark:border-[#2A364F] rounded-xl text-sm focus:border-[#4F46E5] dark:focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/10 dark:focus:ring-indigo-400/20 transition-all dark:text-white"
               />
             </div>
 
@@ -99,7 +100,7 @@ export default function SendMoneyScreen() {
                 <button
                   key={contact.id}
                   onClick={() => handleSelectContact(contact)}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white transition-all text-left active:scale-[0.98]"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white dark:hover:bg-[#151B2C] transition-all text-left active:scale-[0.98] cursor-pointer"
                 >
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-sm shrink-0"
@@ -108,10 +109,10 @@ export default function SendMoneyScreen() {
                     {contact.initials}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-[#333]">{contact.name}</p>
-                    <p className="text-xs text-[#888]">{contact.phone}</p>
+                    <p className="text-sm font-medium text-[#333] dark:text-[#E2E8F0]">{contact.name}</p>
+                    <p className="text-xs text-[#888] dark:text-[#94A3B8]">{contact.phone}</p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-[#888]" />
+                  <ArrowRight className="w-4 h-4 text-[#888] dark:text-[#94A3B8]" />
                 </button>
               ))}
             </div>
@@ -127,7 +128,7 @@ export default function SendMoneyScreen() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <button onClick={() => setStep('recipient')} className="text-sm text-[#4F46E5] mb-4 flex items-center gap-1">
+            <button onClick={() => setStep('recipient')} className="text-sm text-[#4F46E5] dark:text-indigo-400 mb-4 flex items-center gap-1 cursor-pointer">
               ← Back
             </button>
 
@@ -136,35 +137,37 @@ export default function SendMoneyScreen() {
                 {selectedContact.initials}
               </div>
               <div>
-                <p className="text-lg font-semibold text-[#000]">{selectedContact.name}</p>
-                <p className="text-xs text-[#888]">{selectedContact.phone}</p>
+                <p className="text-lg font-semibold text-[#000] dark:text-white">{selectedContact.name}</p>
+                <p className="text-xs text-[#888] dark:text-[#94A3B8]">{selectedContact.phone}</p>
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="text-sm text-[#888] mb-2 block">Enter Amount</label>
+              <label className="text-sm text-[#888] dark:text-[#94A3B8] mb-2 block">Enter Amount</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-3xl font-bold text-[#888]">Rs.</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-3xl font-bold text-[#888] dark:text-[#94A3B8]">Rs.</span>
                 <input
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   placeholder="0.00"
-                  className="w-full pl-16 pr-4 py-5 text-4xl font-bold border-2 border-[#E0E0E0] rounded-xl focus:border-[#4F46E5] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/10 transition-all"
+                  title="Transfer amount"
+                  className="w-full pl-16 pr-4 py-5 text-4xl font-bold bg-transparent dark:text-white border-2 border-[#E0E0E0] dark:border-[#2A364F] rounded-xl focus:border-[#4F46E5] dark:focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/10 dark:focus:ring-indigo-400/20 transition-all"
                   autoFocus
                 />
               </div>
-              <p className="text-xs text-[#888] mt-2">Available: {formatCurrency(currentBalance, selectedCurrency)}</p>
+              <p className="text-xs text-[#888] dark:text-[#94A3B8] mt-2">Available: {formatCurrency(currentBalance, selectedCurrency)}</p>
             </div>
 
             <div className="mb-4">
-              <label className="text-sm text-[#888] mb-2 block">Note (optional)</label>
+              <label className="text-sm text-[#888] dark:text-[#94A3B8] mb-2 block">Note (optional)</label>
               <input
                 type="text"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="What's this for?"
-                className="w-full px-4 py-3 bg-white border border-[#E0E0E0] rounded-xl text-sm focus:border-[#4F46E5] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/10"
+                title="Optional transfer note"
+                className="w-full px-4 py-3 bg-white dark:bg-[#151B2C] border border-[#E0E0E0] dark:border-[#2A364F] rounded-xl text-sm focus:border-[#4F46E5] dark:focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/10 dark:focus:ring-indigo-400/20 transition-all dark:text-white"
               />
             </div>
 
@@ -173,7 +176,7 @@ export default function SendMoneyScreen() {
                 <button
                   key={amt}
                   onClick={() => setAmount(amt.toString())}
-                  className="flex-1 py-2.5 rounded-xl bg-[#F5F5F5] text-sm font-medium text-[#333] hover:bg-[#4F46E5] hover:text-white transition-all"
+                  className="flex-1 py-2.5 rounded-xl bg-[#F5F5F5] dark:bg-[#2A364F] text-sm font-medium text-[#333] dark:text-[#E2E8F0] hover:bg-[#4F46E5] dark:hover:bg-indigo-600 hover:text-white dark:hover:text-white transition-all cursor-pointer"
                 >
                   {amt.toLocaleString()}
                 </button>
@@ -183,7 +186,7 @@ export default function SendMoneyScreen() {
             <button
               onClick={() => setStep('confirm')}
               disabled={!amount || parseFloat(amount) <= 0 || parseFloat(amount) > currentBalance}
-              className="w-full py-4 rounded-xl bg-[#4F46E5] text-white font-semibold text-lg shadow-button hover:bg-[#3f38b7] transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
+              className="w-full py-4 rounded-xl bg-[#4F46E5] text-white font-semibold text-lg shadow-button hover:bg-[#3f38b7] transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] cursor-pointer"
             >
               Continue
             </button>
@@ -200,27 +203,27 @@ export default function SendMoneyScreen() {
             transition={{ duration: 0.3 }}
             className="text-center"
           >
-            <button onClick={() => setStep('amount')} className="text-sm text-[#4F46E5] mb-6 flex items-center gap-1">
+            <button onClick={() => setStep('amount')} className="text-sm text-[#4F46E5] dark:text-indigo-400 mb-6 flex items-center gap-1 cursor-pointer">
               ← Back
             </button>
 
             <div className="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4" style={{ backgroundColor: selectedContact.color }}>
               {selectedContact.initials}
             </div>
-            <p className="text-lg font-semibold text-[#000]">{selectedContact.name}</p>
-            <p className="text-sm text-[#888] mb-6">{selectedContact.phone}</p>
+            <p className="text-lg font-semibold text-[#000] dark:text-white">{selectedContact.name}</p>
+            <p className="text-sm text-[#888] dark:text-[#94A3B8] mb-6">{selectedContact.phone}</p>
 
-            <div className="bg-white rounded-2xl p-6 shadow-card mb-6">
-              <p className="text-sm text-[#888] mb-1">Amount</p>
-              <p className="text-3xl font-bold text-[#000]">Rs. {parseFloat(amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
+            <div className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-6 shadow-card dark:shadow-none mb-6">
+              <p className="text-sm text-[#888] dark:text-[#94A3B8] mb-1">Amount</p>
+              <p className="text-3xl font-bold text-[#000] dark:text-white">Rs. {parseFloat(amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
               {note && (
-                <p className="text-sm text-[#888] mt-2">Note: {note}</p>
+                <p className="text-sm text-[#888] dark:text-[#94A3B8] mt-2">Note: {note}</p>
               )}
             </div>
 
             <button
               onClick={handleSend}
-              className="w-full py-4 rounded-xl bg-[#4F46E5] text-white font-semibold text-lg shadow-button hover:bg-[#3f38b7] transition-all active:scale-[0.98]"
+              className="w-full py-4 rounded-xl bg-[#4F46E5] text-white font-semibold text-lg shadow-button hover:bg-[#3f38b7] transition-all active:scale-[0.98] cursor-pointer"
             >
               Confirm & Send
             </button>
@@ -245,12 +248,12 @@ export default function SendMoneyScreen() {
             >
               <Check className="w-10 h-10 text-white" />
             </motion.div>
-            <h3 className="text-2xl font-bold text-[#000] mb-2">Transfer Successful!</h3>
-            <p className="text-[#888] mb-2">Rs. {parseFloat(amount).toLocaleString()} sent to</p>
-            <p className="text-lg font-semibold text-[#4F46E5] mb-8">{selectedContact?.name}</p>
+            <h3 className="text-2xl font-bold text-[#000] dark:text-white mb-2">Transfer Successful!</h3>
+            <p className="text-[#888] dark:text-[#94A3B8] mb-2">Rs. {parseFloat(amount).toLocaleString()} sent to</p>
+            <p className="text-lg font-semibold text-[#4F46E5] dark:text-indigo-400 mb-8">{selectedContact?.name}</p>
             <button
               onClick={handleReset}
-              className="w-full py-4 rounded-xl bg-[#4F46E5] text-white font-semibold shadow-button hover:bg-[#3f38b7] transition-all"
+              className="w-full py-4 rounded-xl bg-[#4F46E5] text-white font-semibold shadow-button hover:bg-[#3f38b7] transition-all cursor-pointer"
             >
               Send Another
             </button>

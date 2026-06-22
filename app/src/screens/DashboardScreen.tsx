@@ -32,12 +32,12 @@ const categoryIconMap: Record<string, React.ReactNode> = {
 function TransactionItem({ tx }: { tx: Transaction }) {
   const isPositive = tx.type === 'received' || tx.type === 'wallet_funding';
   const isNegative = tx.type === 'sent' || tx.type === 'withdrawal';
-  const amountColor = isPositive ? 'text-[#10B981]' : isNegative ? 'text-[#EF4444]' : 'text-[#333]';
+  const amountColor = isPositive ? 'text-[#10B981]' : isNegative ? 'text-[#EF4444]' : 'text-[#333] dark:text-[#E2E8F0]';
   const prefix = isPositive ? '+' : isNegative ? '-' : '';
 
   return (
-    <div className="flex items-center gap-3 py-3 px-1 hover:bg-[rgba(79,70,229,0.03)] rounded-xl transition-colors cursor-pointer">
-      <div className="w-10 h-10 rounded-full bg-[rgba(79,70,229,0.08)] flex items-center justify-center text-[#4F46E5] shrink-0">
+    <div className="flex items-center gap-3 py-3 px-1 hover:bg-[rgba(79,70,229,0.03)] dark:hover:bg-[rgba(99,102,241,0.05)] rounded-xl transition-colors cursor-pointer">
+      <div className="w-10 h-10 rounded-full bg-[rgba(79,70,229,0.08)] dark:bg-[rgba(99,102,241,0.15)] flex items-center justify-center text-[#4F46E5] dark:text-indigo-400 shrink-0">
         {tx.userAvatar ? (
           <span className="text-sm font-semibold">{tx.userAvatar}</span>
         ) : (
@@ -45,8 +45,8 @@ function TransactionItem({ tx }: { tx: Transaction }) {
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-[#333] truncate">{tx.description}</p>
-        <p className="text-xs text-[#888]">{formatRelativeDate(tx.date)}</p>
+        <p className="text-sm font-medium text-[#333] dark:text-[#E2E8F0] truncate">{tx.description}</p>
+        <p className="text-xs text-[#888] dark:text-[#94A3B8]">{formatRelativeDate(tx.date)}</p>
       </div>
       <span className={`text-sm font-semibold ${amountColor} shrink-0`}>
         {prefix}{formatCurrency(tx.amount, tx.currency)}
@@ -63,10 +63,10 @@ export default function DashboardScreen() {
   const recentTransactions = transactions.slice(0, 5);
 
   return (
-    <div className="px-5 py-4 lg:px-12 lg:py-8 max-w-[1400px] mx-auto">
+    <div className="px-5 py-4 lg:px-12 lg:py-8 max-w-[1400px] mx-auto text-[#333] dark:text-[#E2E8F0]">
       <motion.div variants={container} initial="hidden" animate="show">
         {/* Hero Banner */}
-        <motion.div variants={item} className="gradient-hero rounded-3xl p-6 text-white relative overflow-hidden">
+        <motion.div variants={item} className="gradient-hero rounded-3xl p-6 text-white relative overflow-hidden shadow-[0_8px_30px_rgb(79,70,229,0.3)] dark:shadow-none">
           <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
           <div className="relative z-10">
@@ -103,12 +103,12 @@ export default function DashboardScreen() {
             <button
               key={action.label}
               onClick={() => navigate(action.path)}
-              className="flex flex-col items-center gap-2 py-3 rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all active:scale-95"
+              className="flex flex-col items-center gap-2 py-3 rounded-2xl bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 shadow-card dark:shadow-none hover:shadow-card-hover dark:hover:bg-[#1C2437] transition-all active:scale-95 cursor-pointer"
             >
               <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${action.color}15` }}>
                 <action.icon className="w-5 h-5" style={{ color: action.color }} />
               </div>
-              <span className="text-xs font-medium text-[#333]">{action.label}</span>
+              <span className="text-xs font-medium text-[#333] dark:text-[#E2E8F0]">{action.label}</span>
             </button>
           ))}
         </motion.div>
@@ -116,12 +116,12 @@ export default function DashboardScreen() {
         {/* Recent Transactions */}
         <motion.div variants={item} className="mt-6">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-[#000]">Recent Transactions</h3>
-            <button onClick={() => navigate('/wallet')} className="text-sm text-[#4F46E5] font-medium flex items-center gap-1">
+            <h3 className="text-lg font-semibold text-[#000] dark:text-white">Recent Transactions</h3>
+            <button onClick={() => navigate('/wallet')} className="text-sm text-[#4F46E5] dark:text-indigo-400 font-medium flex items-center gap-1">
               View All <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-          <div className="bg-white rounded-2xl p-4 shadow-card">
+          <div className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-4 shadow-card dark:shadow-none transition-colors">
             {recentTransactions.map(tx => (
               <TransactionItem key={tx.id} tx={tx} />
             ))}
@@ -131,8 +131,8 @@ export default function DashboardScreen() {
         {/* Groups Preview */}
         <motion.div variants={item} className="mt-6">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-[#000]">Your Groups</h3>
-            <button onClick={() => navigate('/groups')} className="text-sm text-[#4F46E5] font-medium flex items-center gap-1">
+            <h3 className="text-lg font-semibold text-[#000] dark:text-white">Your Groups</h3>
+            <button onClick={() => navigate('/groups')} className="text-sm text-[#4F46E5] dark:text-indigo-400 font-medium flex items-center gap-1">
               View All <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -141,13 +141,13 @@ export default function DashboardScreen() {
               <button
                 key={group.id}
                 onClick={() => navigate(`/groups/${group.id}`)}
-                className="snap-start flex-shrink-0 w-36 bg-white rounded-2xl p-4 shadow-card hover:shadow-card-hover transition-all text-left active:scale-95"
+                className="snap-start flex-shrink-0 w-36 bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-4 shadow-card dark:shadow-none hover:shadow-card-hover dark:hover:bg-[#1C2437] transition-all text-left active:scale-95 cursor-pointer"
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-2" style={{ backgroundColor: `${group.color}15` }}>
                   {group.icon}
                 </div>
-                <p className="text-sm font-semibold text-[#333] truncate">{group.name}</p>
-                <p className="text-xs text-[#888] mt-0.5">{group.members.length} members</p>
+                <p className="text-sm font-semibold text-[#333] dark:text-[#E2E8F0] truncate">{group.name}</p>
+                <p className="text-xs text-[#888] dark:text-[#94A3B8] mt-0.5">{group.members.length} members</p>
                 <p className="text-xs font-medium mt-1" style={{ color: group.color }}>
                   {formatCurrency(group.totalExpenses, group.currency)}
                 </p>
@@ -155,12 +155,12 @@ export default function DashboardScreen() {
             ))}
             <button
               onClick={() => navigate('/groups')}
-              className="snap-start flex-shrink-0 w-36 rounded-2xl p-4 border-2 border-dashed border-[#E0E0E0] flex flex-col items-center justify-center gap-2 hover:border-[#4F46E5] transition-colors active:scale-95"
+              className="snap-start flex-shrink-0 w-36 rounded-2xl p-4 border-2 border-dashed border-[#E0E0E0] dark:border-[#2A364F] flex flex-col items-center justify-center gap-2 hover:border-[#4F46E5] dark:hover:border-indigo-400 transition-colors active:scale-95 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#F5F5F5] flex items-center justify-center">
-                <Plus className="w-5 h-5 text-[#888]" />
+              <div className="w-10 h-10 rounded-xl bg-[#F5F5F5] dark:bg-[#1C2437] flex items-center justify-center">
+                <Plus className="w-5 h-5 text-[#888] dark:text-[#94A3B8]" />
               </div>
-              <span className="text-xs font-medium text-[#888]">New Group</span>
+              <span className="text-xs font-medium text-[#888] dark:text-[#94A3B8]">New Group</span>
             </button>
           </div>
         </motion.div>
@@ -168,19 +168,19 @@ export default function DashboardScreen() {
         {/* Savings Goals */}
         <motion.div variants={item} className="mt-6 pb-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-[#000]">Savings Goals</h3>
-            <button className="text-sm text-[#4F46E5] font-medium">View All</button>
+            <h3 className="text-lg font-semibold text-[#000] dark:text-white">Savings Goals</h3>
+            <button className="text-sm text-[#4F46E5] dark:text-indigo-400 font-medium">View All</button>
           </div>
           <div className="space-y-3">
             {savingsGoals.map(goal => (
-              <div key={goal.id} className="bg-white rounded-2xl p-4 shadow-card">
+              <div key={goal.id} className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-4 shadow-card dark:shadow-none transition-colors">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-[#333]">{goal.name}</span>
+                  <span className="text-sm font-medium text-[#333] dark:text-[#E2E8F0]">{goal.name}</span>
                   <span className="text-xs font-medium" style={{ color: goal.color }}>
                     {Math.round((goal.current / goal.target) * 100)}%
                   </span>
                 </div>
-                <div className="w-full h-2 bg-[#F0F0F0] rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-[#F0F0F0] dark:bg-[#1F293D] rounded-full overflow-hidden">
                   <motion.div
                     className="h-full rounded-full"
                     style={{ backgroundColor: goal.color }}
@@ -190,8 +190,8 @@ export default function DashboardScreen() {
                   />
                 </div>
                 <div className="flex justify-between mt-2">
-                  <span className="text-xs text-[#888]">{formatCurrency(goal.current, goal.currency)}</span>
-                  <span className="text-xs text-[#888]">{formatCurrency(goal.target, goal.currency)}</span>
+                  <span className="text-xs text-[#888] dark:text-[#94A3B8]">{formatCurrency(goal.current, goal.currency)}</span>
+                  <span className="text-xs text-[#888] dark:text-[#94A3B8]">{formatCurrency(goal.target, goal.currency)}</span>
                 </div>
               </div>
             ))}

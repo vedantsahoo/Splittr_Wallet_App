@@ -8,6 +8,7 @@ import {
 import { TrendingDown, TrendingUp, Users } from 'lucide-react';
 import { useGroupStore } from '@/store/groupStore';
 import { useWalletStore } from '@/store/walletStore';
+import { useThemeStore } from '@/store/themeStore';
 import { formatCurrency } from '@/lib/utils';
 
 const categoryData = [
@@ -33,7 +34,7 @@ const periods = ['This Week', 'This Month', 'This Year'];
 const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ value: number; name: string }> }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#333] text-white text-xs px-3 py-2 rounded-lg">
+      <div className="bg-[#333] dark:bg-[#1E2638] text-white dark:text-[#E2E8F0] text-xs px-3 py-2 rounded-lg border border-transparent dark:border-[#2A364F] shadow-sm">
         {formatCurrency(payload[0].value, 'INR')}
       </div>
     );
@@ -45,6 +46,7 @@ export default function AnalyticsScreen() {
   const [activePeriod, setActivePeriod] = useState('This Month');
   const { groups } = useGroupStore();
   const { savingsGoals, getBalance, selectedCurrency } = useWalletStore();
+  const { isDarkMode } = useThemeStore();
 
   const totalSpent = categoryData.reduce((sum, c) => sum + c.value, 0);
   const totalReceived = getBalance(selectedCurrency);
@@ -53,7 +55,7 @@ export default function AnalyticsScreen() {
   void monthlyData;
 
   return (
-    <div className="px-5 py-4 lg:px-12 lg:py-8 max-w-[1400px] mx-auto">
+    <div className="px-5 py-4 lg:px-12 lg:py-8 max-w-[1400px] mx-auto text-[#333] dark:text-[#E2E8F0]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -62,16 +64,19 @@ export default function AnalyticsScreen() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-[#000]">Analytics</h2>
-            <p className="text-sm text-[#888]">Track your spending patterns</p>
+            <h2 className="text-2xl font-bold text-[#000] dark:text-white">Analytics</h2>
+            <p className="text-sm text-[#888] dark:text-[#94A3B8]">Track your spending patterns</p>
           </div>
-          <div className="flex gap-1 bg-[#F5F5F5] p-1 rounded-xl">
+          <div className="flex gap-1 bg-[#F5F5F5] dark:bg-[#151B2C] border border-[#F0F0F0]/10 p-1 rounded-xl">
             {periods.map(p => (
               <button
                 key={p}
                 onClick={() => setActivePeriod(p)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activePeriod === p ? 'bg-[#4F46E5] text-white' : 'text-[#888] hover:text-[#333]'
-                  }`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  activePeriod === p
+                    ? 'bg-[#4F46E5] text-white shadow-sm'
+                    : 'text-[#888] dark:text-[#94A3B8] hover:text-[#333] dark:hover:text-white'
+                }`}
               >
                 {p}
               </button>
@@ -85,13 +90,13 @@ export default function AnalyticsScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="bg-white rounded-2xl p-5 shadow-card"
+            className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-5 shadow-card dark:shadow-none transition-colors"
           >
             <div className="w-10 h-10 rounded-xl bg-[rgba(239,68,68,0.08)] flex items-center justify-center mb-3">
               <TrendingDown className="w-5 h-5 text-[#EF4444]" />
             </div>
-            <p className="text-xs text-[#888] mb-1">Total Spent</p>
-            <p className="text-2xl font-bold text-[#333]">
+            <p className="text-xs text-[#888] dark:text-[#94A3B8] mb-1">Total Spent</p>
+            <p className="text-2xl font-bold text-[#333] dark:text-white">
               <CountUp end={totalSpent} duration={1.2} prefix="Rs. " separator="," />
             </p>
             <p className="text-xs text-[#EF4444] mt-1">+12% from last month</p>
@@ -101,12 +106,12 @@ export default function AnalyticsScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-2xl p-5 shadow-card"
+            className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-5 shadow-card dark:shadow-none transition-colors"
           >
             <div className="w-10 h-10 rounded-xl bg-[rgba(16,185,129,0.08)] flex items-center justify-center mb-3">
               <TrendingUp className="w-5 h-5 text-[#10B981]" />
             </div>
-            <p className="text-xs text-[#888] mb-1">Total Received</p>
+            <p className="text-xs text-[#888] dark:text-[#94A3B8] mb-1">Total Received</p>
             <p className="text-2xl font-bold text-[#10B981]">
               <CountUp end={totalReceived} duration={1.2} prefix="Rs. " separator="," />
             </p>
@@ -117,16 +122,16 @@ export default function AnalyticsScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="bg-white rounded-2xl p-5 shadow-card"
+            className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-5 shadow-card dark:shadow-none transition-colors"
           >
             <div className="w-10 h-10 rounded-xl bg-[rgba(79,70,229,0.08)] flex items-center justify-center mb-3">
-              <Users className="w-5 h-5 text-[#4F46E5]" />
+              <Users className="w-5 h-5 text-[#4F46E5] dark:text-indigo-400" />
             </div>
-            <p className="text-xs text-[#888] mb-1">Group Expenses</p>
-            <p className="text-2xl font-bold text-[#333]">
+            <p className="text-xs text-[#888] dark:text-[#94A3B8] mb-1">Group Expenses</p>
+            <p className="text-2xl font-bold text-[#333] dark:text-white">
               <CountUp end={groupExpenses} duration={1.2} prefix="Rs. " separator="," />
             </p>
-            <p className="text-xs text-[#888] mt-1">Across {groups.length} groups</p>
+            <p className="text-xs text-[#888] dark:text-[#94A3B8] mt-1">Across {groups.length} groups</p>
           </motion.div>
         </div>
 
@@ -135,10 +140,10 @@ export default function AnalyticsScreen() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-2xl p-5 shadow-card mb-5"
+          className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-5 shadow-card dark:shadow-none mb-5 transition-colors"
         >
-          <h3 className="text-lg font-semibold text-[#000] mb-1">Spending by Category</h3>
-          <p className="text-xs text-[#888] mb-4">Where your money goes</p>
+          <h3 className="text-lg font-semibold text-[#000] dark:text-white mb-1">Spending by Category</h3>
+          <p className="text-xs text-[#888] dark:text-[#94A3B8] mb-4">Where your money goes</p>
 
           <div className="flex flex-col sm:flex-row items-center gap-6">
             <div className="relative w-56 h-56 shrink-0">
@@ -162,8 +167,8 @@ export default function AnalyticsScreen() {
                 </PieChart>
               </ResponsiveContainer>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <p className="text-xl font-bold text-[#333]">{formatCurrency(totalSpent, 'INR')}</p>
-                <p className="text-[10px] text-[#888]">Total Spent</p>
+                <p className="text-xl font-bold text-[#333] dark:text-white">{formatCurrency(totalSpent, 'INR')}</p>
+                <p className="text-[10px] text-[#888] dark:text-[#94A3B8]">Total Spent</p>
               </div>
             </div>
 
@@ -172,8 +177,8 @@ export default function AnalyticsScreen() {
                 <div key={cat.name} className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
                   <div className="min-w-0">
-                    <p className="text-xs text-[#333] truncate">{cat.name}</p>
-                    <p className="text-[10px] text-[#888]">{Math.round((cat.value / totalSpent) * 100)}%</p>
+                    <p className="text-xs text-[#333] dark:text-[#E2E8F0] truncate">{cat.name}</p>
+                    <p className="text-[10px] text-[#888] dark:text-[#94A3B8]">{Math.round((cat.value / totalSpent) * 100)}%</p>
                   </div>
                 </div>
               ))}
@@ -186,18 +191,18 @@ export default function AnalyticsScreen() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="bg-white rounded-2xl p-5 shadow-card mb-5"
+          className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-5 shadow-card dark:shadow-none mb-5 transition-colors"
         >
-          <h3 className="text-lg font-semibold text-[#000] mb-1">Monthly Trend</h3>
-          <p className="text-xs text-[#888] mb-4">Spending over time</p>
+          <h3 className="text-lg font-semibold text-[#000] dark:text-white mb-1">Monthly Trend</h3>
+          <p className="text-xs text-[#888] dark:text-[#94A3B8] mb-4">Spending over time</p>
 
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
-                <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#888' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 12, fill: '#888' }} axisLine={false} tickLine={false} tickFormatter={v => `Rs.${v / 1000}k`} />
-                <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(79,70,229,0.05)' }} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#1F293D' : '#F0F0F0'} vertical={false} />
+                <XAxis dataKey="month" tick={{ fontSize: 12, fill: isDarkMode ? '#94A3B8' : '#888' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 12, fill: isDarkMode ? '#94A3B8' : '#888' }} axisLine={false} tickLine={false} tickFormatter={v => `Rs.${v / 1000}k`} />
+                <Tooltip content={<CustomTooltip />} cursor={{ fill: isDarkMode ? 'rgba(255,255,255,0.03)' : 'rgba(79,70,229,0.05)' }} />
                 <Bar dataKey="amount" fill="#4F46E5" radius={[4, 4, 0, 0]} animationDuration={800} />
               </BarChart>
             </ResponsiveContainer>
@@ -209,10 +214,10 @@ export default function AnalyticsScreen() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-2xl p-5 shadow-card mb-5"
+          className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-5 shadow-card dark:shadow-none mb-5 transition-colors"
         >
-          <h3 className="text-lg font-semibold text-[#000] mb-1">Group Spending</h3>
-          <p className="text-xs text-[#888] mb-4">Compare across your groups</p>
+          <h3 className="text-lg font-semibold text-[#000] dark:text-white mb-1">Group Spending</h3>
+          <p className="text-xs text-[#888] dark:text-[#94A3B8] mb-4">Compare across your groups</p>
 
           <div className="space-y-3">
             {groups.sort((a, b) => b.totalExpenses - a.totalExpenses).map(group => {
@@ -220,8 +225,8 @@ export default function AnalyticsScreen() {
               const width = maxExpense > 0 ? (group.totalExpenses / maxExpense) * 100 : 0;
               return (
                 <div key={group.id} className="flex items-center gap-3">
-                  <span className="text-sm text-[#333] w-28 shrink-0 truncate">{group.name}</span>
-                  <div className="flex-1 h-6 bg-[#F0F0F0] rounded-full overflow-hidden">
+                  <span className="text-sm text-[#333] dark:text-[#E2E8F0] w-28 shrink-0 truncate">{group.name}</span>
+                  <div className="flex-1 h-6 bg-[#F0F0F0] dark:bg-[#1F293D] rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
                       style={{ background: `linear-gradient(135deg, #4F46E5 0%, #6B4C9A 100%)` }}
@@ -230,7 +235,7 @@ export default function AnalyticsScreen() {
                       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
                     />
                   </div>
-                  <span className="text-sm font-medium text-[#333] w-20 text-right shrink-0">
+                  <span className="text-sm font-medium text-[#333] dark:text-[#E2E8F0] w-20 text-right shrink-0">
                     {formatCurrency(group.totalExpenses, group.currency)}
                   </span>
                 </div>
@@ -244,19 +249,19 @@ export default function AnalyticsScreen() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="bg-white rounded-2xl p-5 shadow-card pb-8"
+          className="bg-white dark:bg-[#151B2C] border border-[#F0F0F0]/10 rounded-2xl p-5 shadow-card dark:shadow-none pb-8 transition-colors"
         >
-          <h3 className="text-lg font-semibold text-[#000] mb-4">Savings Goals Progress</h3>
+          <h3 className="text-lg font-semibold text-[#000] dark:text-white mb-4">Savings Goals Progress</h3>
           <div className="space-y-4">
             {savingsGoals.map(goal => (
               <div key={goal.id}>
                 <div className="flex justify-between mb-1.5">
-                  <span className="text-sm font-medium text-[#333]">{goal.name}</span>
+                  <span className="text-sm font-medium text-[#333] dark:text-[#E2E8F0]">{goal.name}</span>
                   <span className="text-sm font-medium" style={{ color: goal.color }}>
                     {Math.round((goal.current / goal.target) * 100)}%
                   </span>
                 </div>
-                <div className="w-full h-2.5 bg-[#F0F0F0] rounded-full overflow-hidden">
+                <div className="w-full h-2.5 bg-[#F0F0F0] dark:bg-[#1F293D] rounded-full overflow-hidden">
                   <motion.div
                     className="h-full rounded-full"
                     style={{ backgroundColor: goal.color }}
@@ -266,8 +271,8 @@ export default function AnalyticsScreen() {
                   />
                 </div>
                 <div className="flex justify-between mt-1">
-                  <span className="text-xs text-[#888]">{formatCurrency(goal.current, goal.currency)}</span>
-                  <span className="text-xs text-[#888]">{formatCurrency(goal.target, goal.currency)}</span>
+                  <span className="text-xs text-[#888] dark:text-[#94A3B8]">{formatCurrency(goal.current, goal.currency)}</span>
+                  <span className="text-xs text-[#888] dark:text-[#94A3B8]">{formatCurrency(goal.target, goal.currency)}</span>
                 </div>
               </div>
             ))}

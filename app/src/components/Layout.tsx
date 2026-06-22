@@ -4,6 +4,7 @@ import TopAppBar from './TopAppBar';
 import BottomNavigation from './BottomNavigation';
 import NavigationRail from './NavigationRail';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useThemeStore } from '@/store/themeStore';
 
 const pageTitles: Record<string, string> = {
   '/': 'Dashboard',
@@ -18,6 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const isGroupDetail = location.pathname.startsWith('/groups/') && location.pathname !== '/groups';
+  const { isDarkMode } = useThemeStore();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -25,10 +27,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
   const currentTitle = isGroupDetail ? 'Group Details' : (pageTitles[location.pathname] || 'Splittr');
 
   return (
-    <div className="min-h-screen bg-[#F8F8F8]">
+    <div className="min-h-screen bg-[#F8F8F8] dark:bg-[#0B0F19] text-[#333] dark:text-[#E2E8F0] transition-colors duration-200">
       <NavigationRail />
       <TopAppBar title={currentTitle} scrolled={scrolled} />
 
@@ -50,3 +60,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+

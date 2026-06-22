@@ -6,7 +6,7 @@ export default function ToastContainer() {
   const { toastQueue, dismissToast } = useUIStore();
 
   return (
-    <div className="fixed top-4 right-4 z-[500] space-y-3 pointer-events-none">
+    <div className="fixed top-4 right-4 z-500 space-y-3 pointer-events-none">
       <AnimatePresence>
         {toastQueue.map((toast) => (
           <motion.div
